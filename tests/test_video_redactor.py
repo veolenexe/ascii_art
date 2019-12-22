@@ -6,7 +6,7 @@ import os
 class TestVideoRedactor(TestCase):
     def setUp(self):
         self.vr = VideoRedactor()
-        self.folder = os.getcwd()
+        self.folder = os.path.dirname(os.path.abspath(__file__))
         if not self.folder.endswith('tests'):
             self.folder = os.path.join(self.folder, 'tests')
 

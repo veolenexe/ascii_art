@@ -8,11 +8,15 @@ from image_redactor import ImageRedactor
 from video_redactor import VideoRedactor
 
 TMP_IMG = r'temp\temp.png'
-TMP_CONTRAST = r'temp\temp_contr.png'
-TMP_GREYSCALE = r'temp\temp_greyscale.png'
-TMP_ASCII = r'temp\temp_ascii.png'
+TMP_CONTRAST = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'temp',
+                            'temp_contr.png')
+TMP_GREYSCALE = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                             'temp', 'temp_greyscale.png')
+TMP_ASCII = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'temp',
+                         'temp_ascii.png')
 IMAGE_FORMATS = ('.jpg', '.png', '.jpeg')
 VIDEO_FORMATS = ('.mp4', '.avi', '.webm')
+
 
 class UserInterface(QWidget):  # pragma: no cover
 
@@ -226,7 +230,8 @@ class UserInterface(QWidget):  # pragma: no cover
         """
         отчищает папку с времеными файлами
         """
-        folder = os.getcwd() + r'\temp'
+        folder = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                              'temp')
         for filename in os.listdir(folder):
             file_path = os.path.join(folder, filename)
             os.unlink(file_path)

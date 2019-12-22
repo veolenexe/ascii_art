@@ -53,11 +53,14 @@ class VideoRedactor:
             i = 0
             while ret:
                 if i % 5 == 0:
-                    cv2.imwrite(f'temp\\tmpframe{i // 5}.png', frame)
+                    cv2.imwrite(os.path.join(
+                        os.path.dirname(os.path.abspath(__file__)), 'temp',
+                        f'tmpframe{i // 5}.png'), frame)
                 i += 1
                 ret, frame = self.__cap.read()
             i = 0
-            filename = f'temp\\tmpframe{i}.png'
+            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                    'temp', f'tmpframe{i}.png')
             while os.path.exists(filename):
                 with Image.open(filename) as img:
                     img = self.ir.change_contrast(img, contrast)
@@ -65,7 +68,9 @@ class VideoRedactor:
                     img = self.ir.convert_to_ascii(img, width, height)
                     img.save(filename)
                 i += 1
-                filename = f'temp\\tmpframe{i}.png'
+                filename = os.path.join(
+                    os.path.dirname(os.path.abspath(__file__)),
+                    'temp', f'tmpframe{i}.png')
             self.__converted_to_ascii = True
         return self.__converted_to_ascii
 
@@ -75,7 +80,9 @@ class VideoRedactor:
         """
         if self.__converted_to_ascii:
             i = 0
-            frame = f'temp\\tmpframe{i}.png'
+            frame = os.path.join(
+                    os.path.dirname(os.path.abspath(__file__)),
+                    'temp', f'tmpframe{i}.png')
             if not os.path.exists(frame):
                 return
             with Image.open(frame) as first_frame:
@@ -89,7 +96,9 @@ class VideoRedactor:
                 writer.write(cv2.imread(frame))
                 i += 1
                 os.unlink(frame)
-                frame = f'temp\\tmpframe{i}.png'
+                frame = os.path.join(
+                    os.path.dirname(os.path.abspath(__file__)),
+                    'temp', f'tmpframe{i}.png')
             writer.release()
             cv2.destroyAllWindows()
             return True

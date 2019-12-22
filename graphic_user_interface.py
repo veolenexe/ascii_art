@@ -30,6 +30,7 @@ class UserInterface(QWidget):  # pragma: no cover
         self.file_name = ''
         self.image_redactor = ImageRedactor()
         self.video_redactor = VideoRedactor()
+        self.__check_temp_folder()
         self.initUI()
         self.is_video = False
 
@@ -224,6 +225,18 @@ class UserInterface(QWidget):  # pragma: no cover
             self.__change_tmp_file()
             self.__change_tmp_file(TMP_IMG, TMP_CONTRAST)
             self.change_slide_value()
+
+    @staticmethod
+    def __check_temp_folder():
+        """
+        проверяет, существует ли папка для временных файлов,
+        если ее нет - создает ее
+        """
+        tmp_folder_dir = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            'temp')
+        if not os.path.exists(tmp_folder_dir):
+            os.mkdir(tmp_folder_dir)
 
     @staticmethod
     def __clear_tmp_folder():

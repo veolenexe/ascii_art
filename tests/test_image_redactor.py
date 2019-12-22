@@ -6,6 +6,11 @@ import os
 
 class TestImageRedactor(TestCase):
     def setUp(self):
+        tmp_folder_dir = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            'temp')
+        if not os.path.exists(tmp_folder_dir):
+            os.mkdir(tmp_folder_dir)
         self.ir = ImageRedactor()
         self.image = Image.new('RGB', (400, 400), color=100)
 

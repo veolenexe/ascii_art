@@ -5,6 +5,11 @@ import os
 
 class TestVideoRedactor(TestCase):
     def setUp(self):
+        tmp_folder_dir = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            'temp')
+        if not os.path.exists(tmp_folder_dir):
+            os.mkdir(tmp_folder_dir)
         self.vr = VideoRedactor()
         self.folder = os.path.dirname(os.path.abspath(__file__))
         if not self.folder.endswith('tests'):
